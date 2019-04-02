@@ -16,7 +16,6 @@ hisashi.yamaguchi/auth0-javascript-samples:
   PostInstall:
     - echo "PostInstall Starting."
     # - npm install --save auth0-js
-    - cd 01-Login
     - npm install
   Exec:
     - echo "Exec Starting."
