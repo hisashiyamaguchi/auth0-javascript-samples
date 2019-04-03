@@ -2,26 +2,7 @@ hisashi.yamaguchi/auth0-javascript-samples:
   # This Basic Distelli Manifest assumes the following
   # has been provisioned on the destination deploy server:
 
-  PkgInclude:
-    - server.js
-  PkgExclude:
-    - node_modules/
-  PreInstall:
-    - echo "PreInstall Starting."
-    - if sudo yum repolist | grep epel; then echo skipping epel rpm install; else sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; fi
-    - sudo yum -y install epel-release
-    - sudo yum -y install nodejs
-    - sudo yum -y install npm
-    - sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
-  PostInstall:
-    - echo "PostInstall Starting."
-    # - npm install --save auth0-js
-    - npm install
   Exec:
     - echo "Exec Starting."
-    - publicip=$(curl -s ident.me) || true
-    - 'echo "****************************************************************"'
-    - 'echo     "NodeJS application will start on: http://$publicip"'
-    - 'echo "****************************************************************"'
-    # - exec node server.js
-    - npm start
+    - docker build -t auth0-javascript-01-login .
+    - docker run -p 3000:3000 -it auth0-javascript-01-login
