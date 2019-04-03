@@ -2,7 +2,17 @@ hisashi.yamaguchi/auth0-javascript-samples:
   # This Basic Distelli Manifest assumes the following
   # has been provisioned on the destination deploy server:
 
+  PreInstall:
+    - echo "PreInstall Starting."
+    - if sudo yum repolist | grep epel; then echo skipping epel rpm install; else sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; fi
+    - sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+    - sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    - sudo yum makecache fast
+    - sudo yum install -y docker-ce
   Exec:
     - echo "Exec Starting."
+    - 'echo "****************************************************************"'
+    - 'echo     "NodeJS application will start on: http://$publicip"'
+    - 'echo "****************************************************************"'
     - /usr/bin/docker build -t auth0-javascript-01-login .
     - /usr/bin/docker run -p 3000:3000 -it auth0-javascript-01-login
