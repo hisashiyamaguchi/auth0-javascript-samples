@@ -4,5 +4,5 @@ hisashi.yamaguchi/auth0-javascript-samples:
 
   Exec:
     - echo "Exec Starting."
-    - docker build -t auth0-javascript-01-login .
-    - docker run -p 3000:3000 -it auth0-javascript-01-login
+    - /usr/bin/docker build -t auth0-javascript-01-login .
+    - /usr/bin/docker run -p 3000:3000 -it auth0-javascript-01-login
